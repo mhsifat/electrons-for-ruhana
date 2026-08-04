@@ -251,15 +251,19 @@
 
   function rand(min, max){ return Math.random() * (max - min) + min; }
 
-  class Particle{
+class Particle{
     constructor(){
       this.reset();
-      // stagger initial angle/radius so they don't all start in one ring
-      this.radius = rand(40, Math.min(W, H) * 0.42);
+      // Initial stagger
+      this.radius = rand(120, Math.min(W, H) * 0.45);
       this.angle = rand(0, Math.PI * 2);
     }
     reset(){
-      this.baseRadius = rand(40, Math.min(W, H) * 0.42);
+      // Responsive minimum radius to keep the core empty for her name
+      let minRadius = Math.min(W, H) * 0.22;
+      if(minRadius < 120) minRadius = 120;
+
+      this.baseRadius = rand(minRadius, Math.min(W, H) * 0.48);
       this.radius = this.baseRadius;
       this.angle = rand(0, Math.PI * 2);
       this.speed = rand(0.15, 0.9) * (Math.random() < 0.5 ? 1 : -1) / this.baseRadius * 40;
